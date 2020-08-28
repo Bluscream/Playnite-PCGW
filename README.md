@@ -1,1 +1,1 @@
-"# Playnite-PCGW" 
+"# Playnite-PCGW"
