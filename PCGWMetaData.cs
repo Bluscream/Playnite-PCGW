@@ -57,12 +57,12 @@ namespace PCGWMetaData
 
         private List<MetadataField> GetAvailableFields()
         {
-            return new List<MetadataField> { };
+            return new List<MetadataField> { MetadataField.Tags };
         }
 
         public override List<string> GetTags()
         {
-            api.Dialogs.ShowMessage("Requested metadata for game " + options.GameData.Name);
+            // api.Dialogs.ShowMessage("Requested metadata for game " + options.GameData.Name);
             var tags = new List<string>();
             var l_ = api.Database.Games.FirstOrDefault(g => g.Id == options.GameData.Id);
             if (l_ != null)
@@ -76,12 +76,12 @@ namespace PCGWMetaData
             var url = url_base + HttpUtility.HtmlEncode(options.GameData.Name);
             var json = webClient.DownloadString(url);
             var result = JsonConvert.DeserializeObject<Classes.ApiResult>(json);
-            api.Dialogs.ShowMessage(JsonConvert.SerializeObject(result));
+            // api.Dialogs.ShowMessage(JsonConvert.SerializeObject(result));
             if (result is null || result.Query is null || result.Query.Data is null) return null;
             var engine = result.Query.Data.Where(i => i.Property == "Uses_engine").FirstOrDefault()?.Dataitem.FirstOrDefault().Item;
             if (engine != null)
                 tags.Add("engine:" + engine.Replace("#404#", ""));
-            api.Dialogs.ShowMessage(JsonConvert.SerializeObject(tags));
+            // api.Dialogs.ShowMessage(JsonConvert.SerializeObject(tags));
             return tags;
         }
     }
