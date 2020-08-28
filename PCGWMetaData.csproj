@@ -34,6 +34,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Playnite.SDK, Version=5.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\PlayniteSDK.5.2.0\lib\net462\Playnite.SDK.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,20 +54,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Playnite.Common\Playnite.Common.csproj">
-      <Project>{deb1b9f3-6fc9-4185-8daa-4fca15b46f83}</Project>
-      <Name>Playnite.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PlayniteSDK\Playnite.SDK.csproj">
-      <Project>{19bc9097-5705-4352-90e2-99f0c63230d0}</Project>
-      <Name>Playnite.SDK</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <None Include=".gitignore" />
+    <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "D:\OneDrive\Trans-Folder\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetPath)" "D:\OneDrive\Trans-Folder\$(TargetFileName)"
+copy "$(TargetPath)" "C:\Users\blusc\AppData\Roaming\Playnite\Extensions\PCGWMetadata\$(TargetFileName)"
+cmd.exe /c start "" "C:\Users\blusc\AppData\Local\Playnite\Playnite.DesktopApp.exe"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>taskkill /f /im Playnite.DesktopApp.exe</PreBuildEvent>
   </PropertyGroup>
 </Project>
