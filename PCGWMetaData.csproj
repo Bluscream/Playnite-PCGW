@@ -50,8 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ApiResult.cs" />
+    <Compile Include="Classes\PCGWCache.cs" />
     <Compile Include="PCGWMetaData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Extensions.cs" />
+    <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
