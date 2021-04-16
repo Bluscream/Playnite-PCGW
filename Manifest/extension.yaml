@@ -1,0 +1,7 @@
+﻿Id: PCGamingWiki_111001DB-DBD1-46C6-B5D0-B1BA559D10E4
+Name: PCGamingWiki
+Author: Bluscream
+Version: 0.1
+Module: PCGWMetaData.dll
+Type: MetadataProvider
+Icon: icon.png
