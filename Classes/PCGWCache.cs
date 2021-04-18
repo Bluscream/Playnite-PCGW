@@ -38,7 +38,8 @@ namespace PCGWMetaData.Classes
         private Game addGame(string name)
         {
             var game = new Game(name, this);
-            var json = plugin.webClient.DownloadString(string.Format(PCGWMetaDataPlugin.url_base, game.EncodedName()));
+            //plugin.api.Dialogs.ShowMessage(name + " " + game.Name + " " + game.EncodedUri());
+            var json = plugin.webClient.DownloadString(string.Format(PCGWMetaDataPlugin.url_base, game.EncodedUri()));
             game.File().WriteAllText(json);
             games.Add(game);
             return game;
@@ -46,13 +47,14 @@ namespace PCGWMetaData.Classes
 
         private Game _getGame(string name)
         {
-            return games.FirstOrDefault(g => g.Name == name.ToLowerInvariant());
+            return games.FirstOrDefault(g => g.Name == name);
         }
 
         public Game getGame(string name)
         {
             var game = _getGame(name);
-            if (game is null) addGame(name);
+            if (game is null) 
+                game = addGame(name);
             return game;
         }
 
@@ -81,7 +83,7 @@ namespace PCGWMetaData.Classes
 
         public Game(string Name, Cache _cache)
         {
-            this.Name = Name.ToLowerInvariant(); this._cache = _cache;
+            this.Name = Name; this._cache = _cache;
         }
 
         public FileInfo File()
@@ -94,8 +96,9 @@ namespace PCGWMetaData.Classes
             return Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResult>(File().ReadAllText());
         }
 
-        public string EncodedName() => HttpUtility.UrlEncode(this.Name);
-        // public string DecodedName() => HttpUtility.HtmlDecode(this.Name);
+        public string EncodedUri() => Uri.EscapeUriString(this.Name);
+        public string EncodedName() => HttpUtility.UrlEncode(this.Name.ToLowerInvariant());
+        //public string DecodedName() => HttpUtility.HtmlDecode(this.Name);
 
         public bool isOutdated()
         {
